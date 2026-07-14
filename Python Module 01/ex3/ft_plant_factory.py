@@ -2,12 +2,13 @@
 
 class Plant:
     def __init__(self, name: str, height: int | float, age: int) -> None:
-        self.name = name
-        self.height = height
-        self.age = age
+        self.plant_name = name
+        self.plant_height = height
+        self.plant_age = age
 
     def description(self) -> str:
-        return (f"{self.name}: {self.height}cm, {self.age} days old")
+        return (f"{self.plant_name}: {self.plant_height}cm, {self.plant_age}"
+                f" days old")
 
     def show(self) -> None:
         print(self.description())
@@ -15,9 +16,15 @@ class Plant:
     def report(self) -> str:
         return (f"Created: {self.description()}")
 
+    def grow(self, height: int | float) -> None:
+        self.height = round(height)
+
+    def age(self, age: int) -> None:
+        self.plant_age = age
+
 
 def main_test() -> None:
-    print("=== Garden Plant Registry ===")
+    print("=== Plant Factory Output ===")
     plants = [
         Plant("Rose", 25.0, 30),
         Plant("Oak", 200.0, 365),

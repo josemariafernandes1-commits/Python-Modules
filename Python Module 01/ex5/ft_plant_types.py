@@ -2,22 +2,23 @@
 
 class Plant:
     def __init__(self, name: str, height: int | float, age: int) -> None:
-        self._name = name
+        self._plant_name = name
         if (height < 0):
-            self._height = 0.0
-            print(f"{self._name}: Error, height can't be negative")
+            self._plant_height = 0.0
+            print(f"{self._plant_name}: Error, height can't be negative")
             print("Defaulted to 0")
         else:
-            self._height = height
+            self._plant_height = height
         if (age < 0):
-            self._age = 0
-            print(f"{self._name}: Error, age can't be negative")
+            self._plant_age = 0
+            print(f"{self._plant_name}: Error, age can't be negative")
             print("Defaulted to 0")
         else:
-            self._age = age
+            self._plant_age = age
 
     def description(self) -> str:
-        return (f"{self._name}: {self._height}cm, {self._age} days old")
+        return (f"{self._plant_name}: {self._plant_height}cm,"
+                f" {self._plant_age} days old")
 
     def show(self) -> None:
         print(self.description())
@@ -25,27 +26,33 @@ class Plant:
     def report(self) -> str:
         return (f"Plant created: {self.description()}")
 
+    def grow(self, height: int | float) -> None:
+        self._plant_height += round(height, 1)
+
+    def age(self, age: int) -> None:
+        self._plant_age += age
+
     def set_height(self, height: int | float) -> None:
         if height < 0:
-            print(f"{self._name}: Error, height can't be negative")
+            print(f"{self._plant_name}: Error, height can't be negative")
             print("Height update rejected")
             return
-        self._height = height
-        print(f"Height updated: {self._height}cm")
+        self._plant_height = height
+        # print(f"Height updated: {self._height}cm")
 
     def set_age(self, age: int) -> None:
         if age < 0:
-            print(f"{self._name}: Error, age can't be negative")
+            print(f"{self._plant_name}: Error, age can't be negative")
             print("Age update rejected")
             return
-        self._age = age
-        print(f"Age updated: {self._age} days")
+        self._plant_age = age
+        # print(f"Age updated: {self._age} days")
 
     def get_height(self) -> int | float:
-        return self._height
+        return self._plant_height
 
     def get_age(self) -> int:
-        return self._age
+        return self._plant_age
 
 
 class Flower(Plant):
@@ -57,7 +64,7 @@ class Flower(Plant):
         self._blooming = False
 
     def bloom(self) -> None:
-        print(f"[asking the {self._name} to bloom]")
+        print(f"[asking the {self._plant_name} to bloom]")
         self._blooming = True
 
     def description(self) -> str:
@@ -65,7 +72,7 @@ class Flower(Plant):
                   else "has not bloomed yet")
         return (f"{super().description()}\n"
                 f" Color: {self._color}\n"
-                f" {self._name} {status}")
+                f" {self._plant_name} {status}")
 
     def show(self) -> None:
         if not Flower._header_shown:
@@ -82,9 +89,10 @@ class Tree(Plant):
         super().__init__(name, height, age)
         self._trunk_diameter = trunk_diameter
 
-    def shade(self) -> None:
-        print(f"[asking the {self._name} to produce shade]")
-        print(f"Tree {self._name} now produces a shade of {self._height}cm"
+    def produce_shade(self) -> None:
+        print(f"[asking the {self._plant_name} to produce shade]")
+        print(f"Tree {self._plant_name} now produces a shade of "
+              f"{self._plant_height}cm"
               f" long and {self._trunk_diameter}cm wide.")
 
     def description(self) -> str:
@@ -107,10 +115,10 @@ class Vegetable(Plant):
         self._harvest_season = harvest_season
         self._nutritional_value = nutritional_value
 
-    def grow_and_age(self, age: int) -> None:
-        print(f"[make {self._name.lower()} grow and age for {age} days]")
-        self.set_age(self._age + age)
-        self.set_height(self._height + (age * (2.1)))
+    def grow_and_age(self, age: int, height: int | float) -> None:
+        print(f"[make {self._plant_name.lower()} grow and age for {age} days]")
+        self.age(age)
+        self.grow((height))
         self._nutritional_value += age
 
     def description(self) -> str:
@@ -129,16 +137,16 @@ def main_test() -> None:
     print("=== Garden Plant Types ===")
     rose = Flower("Rose", 15.0, 10, "red")
     oak = Tree("Oak", 200.0, 365, 5.0)
-    tomato = Vegetable("Tomato", 5.0, 10, "July", 0)
+    tomato = Vegetable("Tomato", 5.0, 10, "April", 0)
     rose.show()
     rose.bloom()
     rose.show()
     print("")
     oak.show()
-    oak.shade()
+    oak.produce_shade()
     print("")
     tomato.show()
-    tomato.grow_and_age(20)
+    tomato.grow_and_age(20, 42.0)
     tomato.show()
 
 
