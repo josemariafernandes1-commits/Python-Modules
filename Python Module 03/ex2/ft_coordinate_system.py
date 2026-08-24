@@ -32,7 +32,7 @@ def get_player_pos() -> tuple[float, float, float] | None:
     if len(invalid) == 1:
         quoted = [f"'{x}'" for x in invalid]
         print(f"Error on parameter {', '.join(quoted)}: could not convert"
-              f"string to float: {', '.join(quoted)}")
+              f" string to float: {', '.join(quoted)}")
         return None
     return (coordinates[0], coordinates[1], coordinates[2])
 
@@ -55,9 +55,6 @@ def position_tracker() -> None:
     second_coordinates = None
     while second_coordinates is None:
         second_coordinates = get_player_pos()
-    print(f"Got a first tuple: {second_coordinates}")
-    print(f"It includes: X={second_coordinates[0]}, "
-          f"Y={second_coordinates[1]}, Z={second_coordinates[2]}")
     x2 = second_coordinates[0]
     y2 = second_coordinates[1]
     z2 = second_coordinates[2]
