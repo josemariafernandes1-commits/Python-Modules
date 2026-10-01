@@ -24,6 +24,7 @@ def inventory_insertion(input: list[str]) -> dict[str, int]:
 
 def value_item(backpack: dict[str, int],
                high_or_low: int) -> tuple[str, int]:
+    return_item = ""
     if (high_or_low == 1):
         return_value = -1
     elif (high_or_low == 0):
@@ -32,7 +33,7 @@ def value_item(backpack: dict[str, int],
         if quantity > return_value and high_or_low == 1:
             return_item = name
             return_value = quantity
-        elif quantity < return_value and high_or_low == 0:
+        elif quantity <= return_value and high_or_low == 0:
             return_item = name
             return_value = quantity
     return return_item, return_value
@@ -49,10 +50,11 @@ def inventory_sorting() -> None:
     for name, quantity in backpack.items():
         print(f"Item {name} represents "
               f"{round(quantity/sum(backpack.values())*100, 1)}%")
-    top_item, top_value = value_item(backpack, 1)
-    least_item, least_value = value_item(backpack, 0)
-    print(f"Item most abundant: {top_item} with quantity {top_value}")
-    print(f"Item least abundant: {least_item} with quantity {least_value}")
+    if backpack:
+        top_item, top_value = value_item(backpack, 1)
+        least_item, least_value = value_item(backpack, 0)
+        print(f"Item most abundant: {top_item} with quantity {top_value}")
+        print(f"Item least abundant: {least_item} with quantity {least_value}")
     amulet_appears = {"magic_item": 1}
     backpack.update(amulet_appears)
     print(f"Updated inventory: {backpack}")
