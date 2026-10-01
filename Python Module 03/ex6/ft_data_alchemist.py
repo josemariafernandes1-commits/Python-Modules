@@ -16,9 +16,8 @@ def gen_player_list() -> list[str]:
 
 
 def gen_player_scores(players: list[str]) -> dict[str, int]:
-    player_scores: dict[str, int] = {}
-    for name in players:
-        player_scores[name] = random.randint(1, 1000)
+    player_scores: dict[str, int] = {player: random.randint(1, 1000)
+                                     for player in players}
     return player_scores
 
 

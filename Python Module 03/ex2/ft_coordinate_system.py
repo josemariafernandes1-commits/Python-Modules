@@ -11,30 +11,54 @@ def is_valid_float(text: str) -> bool:
             and text != "" and text != ".")
 
 
+# def get_player_pos() -> tuple[float, float, float] | None:
+#     line = input("Enter new coordinates as floats in format 'x,y,z': ")
+#     coordinate = [p.strip() for p in line.split(",")]
+#     if len(coordinate) != 3:
+#         print("Invalid syntax")
+#         return None
+#     coordinates = []
+#     invalid: list[str] = []
+#     for p in coordinate:
+#         if is_valid_float(p):
+#             coordinates.append(float(p))
+#         else:
+#             invalid.append(p)
+#     if not coordinates or len(invalid) >= 2:
+#         quoted = [f"'{x}'" for x in invalid]
+#         print(f"Error on parameters {', '.join(quoted)}: could not convert"
+#               f" strings to float: {', '.join(quoted)}")
+#         return None
+#     if len(invalid) == 1:
+#         quoted = [f"'{x}'" for x in invalid]
+#         print(f"Error on parameter {', '.join(quoted)}: could not convert"
+#               f" string to float: {', '.join(quoted)}")
+#         return None
+#     return (coordinates[0], coordinates[1], coordinates[2])
+
+
 def get_player_pos() -> tuple[float, float, float] | None:
     line = input("Enter new coordinates as floats in format 'x,y,z': ")
-    coordinate = [p.strip() for p in line.split(",")]
-    if len(coordinate) != 3:
+    parts = line.split(",")
+    if (len(parts) != 3):
         print("Invalid syntax")
         return None
-    coordinates = []
-    invalid: list[str] = []
-    for p in coordinate:
-        if is_valid_float(p):
-            coordinates.append(float(p))
-        else:
-            invalid.append(p)
-    if not coordinates or len(invalid) >= 2:
-        quoted = [f"'{x}'" for x in invalid]
-        print(f"Error on parameters {', '.join(quoted)}: could not convert"
-              f" strings to float: {', '.join(quoted)}")
-        return None
+    values = []
+    invalid = []
+    for n in parts:
+        try:
+            values.append(float(n))
+        except ValueError:
+            invalid.append(n)
     if len(invalid) == 1:
-        quoted = [f"'{x}'" for x in invalid]
-        print(f"Error on parameter {', '.join(quoted)}: could not convert"
-              f" string to float: {', '.join(quoted)}")
+        print(f"Error on parameter '{invalid[0]}': could not convert"
+              f" string to float: '{invalid[0]}'")
         return None
-    return (coordinates[0], coordinates[1], coordinates[2])
+    elif len(invalid) == 2 or len(invalid) == 3:
+        print(f"Error on parameters '{invalid}': could"
+              f" not convert strings to float: '{invalid}'")
+        return None
+    return (float(parts[0]), float(parts[1]), float(parts[2]))
 
 
 def position_tracker() -> None:

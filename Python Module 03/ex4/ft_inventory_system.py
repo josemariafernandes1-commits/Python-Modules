@@ -47,9 +47,12 @@ def inventory_sorting() -> None:
     print(f"Item list: {items}")
     print(f"Total quantity of the {len(backpack)} "
           f"items: {sum(backpack.values())}")
+    total = sum(backpack.values())
     for name, quantity in backpack.items():
-        print(f"Item {name} represents "
-              f"{round(quantity/sum(backpack.values())*100, 1)}%")
+        if sum(backpack.values()) == 0:
+            print(f"Item {name} represents 0.0%")
+        else:
+            print(f"Item {name} represents {round(quantity/total*100, 1)}%")
     if backpack:
         top_item, top_value = value_item(backpack, 1)
         least_item, least_value = value_item(backpack, 0)
