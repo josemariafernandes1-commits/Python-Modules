@@ -3,14 +3,22 @@
 import sys
 
 
-def setup_scores(args: list[str]) -> list[int]:
-    scoreboard = []
-    for arg in sys.argv[1:]:
-        if arg.isdigit():
+def setup_scores(args: list[str]) -> list[int | float]:
+    scoreboard: list[int | float] = []
+    for arg in args:
+        try:
             scoreboard.append(int(arg))
-        else:
-            print(f"Invalid parameter: '{arg}'")
-    return (scoreboard)
+        except ValueError:
+            try:
+                value = float(arg)
+                if value != value or abs(value) == float("inf"):
+                    raise ValueError(f"Invalid parameter: '{value}'")
+                elif "e" in arg.lower():
+                    raise ValueError(f"Invalid parameter: '{value}'")
+                scoreboard.append(float(arg))
+            except ValueError:
+                print(f"Invalid parameter: '{arg}'")
+    return scoreboard
 
 
 def score_cruncher() -> None:

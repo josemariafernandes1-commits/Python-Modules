@@ -57,8 +57,7 @@ def stream_management() -> None:
 def copying_content(file_content: str) -> None:
     print("Enter new file name (or empty): ", end="")
     sys.stdout.flush()
-    save_filename = sys.stdin.readline()
-    save_filename = save_filename[:-1]
+    save_filename = sys.stdin.readline().rstrip("\n")
     if save_filename:
         print(f"Saving data to '{save_filename}'")
         try:

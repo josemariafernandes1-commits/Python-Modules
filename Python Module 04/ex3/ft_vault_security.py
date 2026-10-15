@@ -22,7 +22,7 @@ def secure_archive(filename: str, action: str = 'r',
 
 def test_secure_archive() -> None:
     print("=== Cyber Archives Security ===\n")
-    test1 = "not_existant.txt"
+    test1 = "non_existant.txt"
     print(f"Using '{secure_archive.__name__}' "
           "to read from a nonexistent file:")
     result1 = secure_archive(test1)
@@ -44,7 +44,7 @@ def test_secure_archive() -> None:
           "to write previous content to a new file:")
     result4 = secure_archive(test4, "w", result3[1])
     print(result4)
-    # print()
+    print()
     # test5 = "newfile2.txt"
     # print(f"Using '{secure_archive.__name__}' "
     #       "to test for incorrect operations:")

@@ -24,8 +24,12 @@ def list_player_achievements() -> None:
     print(f"Player Charlie: {(Charlie)}")
     print(f"Player Dylan: {(Dylan)}")
     print()
-    print(f"All distinct achievements: "
-          f"{Alice.difference(Bob, Charlie, Dylan)}\n")
+    unique_achievements = set.union(
+        Alice.difference(Bob, Charlie, Dylan),
+        Bob.difference(Alice, Charlie, Dylan),
+        Charlie.difference(Alice, Bob, Dylan),
+        Dylan.difference(Alice, Bob, Charlie))
+    print(f"All distinct achievements: {unique_achievements}\n")
     print(f"Common achievements: "
           f"{set.intersection(Alice, Bob, Charlie, Dylan)}\n")
     print(f"Only Alice has: {Alice.difference(Bob, Charlie, Dylan)}")

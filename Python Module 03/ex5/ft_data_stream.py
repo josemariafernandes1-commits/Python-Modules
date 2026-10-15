@@ -12,9 +12,10 @@ def gen_event(players: list[str], actions:
 
 def generator_display() -> None:
     print("=== Game Data Stream Processor ===")
-    player_list = ['alice', 'bob', 'charlie', 'dylan']
-    action_list = ['run', 'eat', 'sleep', 'grab',
-                   'move', 'climb', 'swim', 'release']
+    player_list = ['alice', 'bob', 'charlie', 'dylan', 'ethan', 'felix',
+                   'grace', 'hank', 'ivy', 'john']
+    action_list = ['run', 'eat', 'sleep', 'grab', 'attack', 'fly', 'throw'
+                   'move', 'climb', 'swim', 'release', 'heal', 'fake death']
     event = gen_event(player_list, action_list)
     for i in range(1000):
         narrate = next(event)

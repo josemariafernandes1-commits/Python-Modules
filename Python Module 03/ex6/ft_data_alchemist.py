@@ -4,15 +4,10 @@ import random
 
 
 def gen_player_list() -> list[str]:
-    player_names = sorted({'Alice', 'Bob', 'Charlie', 'Dylan', 'Emma',
-                           'Gregory', 'John', 'Kevin', 'Liam'})
-    list_randomized = []
-    for name in player_names:
-        if random.choice([True, False]):
-            list_randomized.append(name.capitalize())
-        else:
-            list_randomized.append(name.lower())
-    return list_randomized
+    player_names = sorted({'alice', 'bob', 'charlie', 'dylan', 'emma',
+                           'gregory', 'john', 'kevin', 'liam'})
+    return [name.title() if random.choice([True, False])
+            else name for name in player_names]
 
 
 def gen_player_scores(players: list[str]) -> dict[str, int]:
@@ -22,9 +17,10 @@ def gen_player_scores(players: list[str]) -> dict[str, int]:
 
 
 def player_lists_displayed() -> None:
+    print("=== Game Data Alchemist ===\n")
     names = gen_player_list()
-    capitalized_list = [name.capitalize() for name in names]
-    capitalized_names = [name for name in names if name[0].isupper()]
+    capitalized_list = [name.title() for name in names]
+    capitalized_names = [name for name in names if name.istitle()]
     print(f"Initial list of players: {names}")
     print(f"New list with all names capitalized: {capitalized_list}")
     print(f"New list of capitalized names only: {capitalized_names}\n")
@@ -33,10 +29,9 @@ def player_lists_displayed() -> None:
     average = round(sum(player_scoreboard.values())
                     / len(player_scoreboard), 2)
     print(f"Score average is {average}")
-    top_scores = {}
-    for name, score in player_scoreboard.items():
-        if score > average:
-            top_scores[name] = score
+    top_scores: dict[str, int] = {player: high_scores for player,
+                                  high_scores in player_scoreboard.items()
+                                  if high_scores >= average}
     print(f"High scores: {top_scores}")
 
 
